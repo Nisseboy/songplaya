@@ -1,6 +1,7 @@
 :root {
   --bg: rgb(48, 48, 48);
   --fg: rgb(65, 65, 65);
+  --play: limegreen;
 }
 
 html,
