@@ -1,9 +1,11 @@
-import styles from '../styles/Window.module.css';
+import { useData } from './Context';
+import styles from './Window.module.css';
 
 export default function Window({ title }) {
+  const { song, setSong } = useData();
   return (
-  <div className={styles.window}>
-    <img className={styles.windowImage} src="/songs/Adele - Rolling in the Deep (Official Music Video).jpg"></img>
+  <div className={styles.window} onClick={()=>{setSong(title)}}>
+    <img className={styles.windowImage} src={`/songs/${title}.jpg`}></img>
     <div className={styles.windowText}>{title}</div>
   </div>)
 }

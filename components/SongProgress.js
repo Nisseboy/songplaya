@@ -1,6 +1,6 @@
 
 import { useEffect, useRef, useState } from 'react';
-import styles from '../styles/SongProgress.module.css';
+import styles from './SongProgress.module.css';
 
 export default function SongProgress({  }) {
   const [ progress, setProgress ] = useState(0);

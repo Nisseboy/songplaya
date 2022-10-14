@@ -3,16 +3,33 @@
   width: 20rem;
   aspect-ratio: 16 / 9;
 
+  user-select: none;
+  cursor: pointer;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  border-radius: 1rem;
+
+  border: 2px solid black;
+
+  transition-duration: 200ms;
+}
+.window:hover {
+  border-color: var(--play);
 }
 .windowImage {
   width: 90%;
   aspect-ratio: 16/9;
+
+  margin-top: 1rem;
+
+  border-radius: inherit;
 }
 .windowText {
   width: 90%;
+  font-weight: 600;
 }
 .windowBar {
   width: 90%;

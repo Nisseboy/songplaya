@@ -1,17 +1,28 @@
 
 import SongProgress from './SongProgress';
 
-import styles from '../styles/Playbar.module.css';
+import styles from './Playbar.module.css';
+import { useState } from 'react';
 
 export default function Playbar({ title }) {
+  const [playing, setPlaying] = useState(false);
+
+  const playClick = function() {
+    setPlaying(!playing);
+  }
+
   return (
-  <div className={styles.window}>
-    <img className={styles.windowImage} src="/songs/Adele - Rolling in the Deep (Official Music Video).jpg"></img>
-    <div className={styles.windowText}>{title}</div>
-    
-    <div className={styles.windowBar}>
-      <div className={styles.windowPlay}>▶</div>
-      <SongProgress></SongProgress>
+  <div className={styles.bar}>
+    <div className={styles.titleStuff}>
+      <img className={styles.image} src={`/songs/${title}.jpg`}></img>
+      <div className={styles.title}>{title}</div>
+    </div>
+
+    <div className={styles.greenStuff}>
+      <div className={styles.play} onClick={playClick}>
+        <img className={styles.playImg} src={(!playing)?"imgs/play.svg":"imgs/pause.svg"}/>
+      </div>
+      <div className={styles.progress}><SongProgress></SongProgress></div>
     </div>
   </div>)
 }

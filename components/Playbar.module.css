@@ -1,0 +1,66 @@
+.bar {
+  position: fixed;
+  bottom: 0;
+  left: 5%;
+
+  width: 90%;
+  height: 5rem;
+
+  background-color: var(--fg);
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  border: 2px solid black;
+  border-bottom: 0;
+  border-radius: 1rem 1rem 0 0;
+
+  user-select: none;
+}
+
+.titleStuff {
+  height: 90%;
+  width: 30%;
+  display: flex;
+  align-items: center;
+}
+.image {
+  height: 90%;
+  aspect-ratio: 16 / 9;
+  margin: 1rem;
+
+  border-radius: 0.5rem;
+}
+.title {
+  font-size: 1.5rem;
+}
+
+
+.greenStuff {
+  width: 70%;
+  display: flex;
+  align-items: center;
+}
+.play {
+  width: 3rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 100%;
+  background-color: var(--play);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  margin: 1rem;
+}
+.playImg {
+  user-select: none;
+  width: 80%;
+  aspect-ratio: 1 / 1;
+}
+.progress {
+  width: 100%;
+}
