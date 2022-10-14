@@ -1,9 +1,10 @@
 
 import { useEffect, useRef, useState } from 'react';
+import { useData } from './Context';
 import styles from './SongProgress.module.css';
 
 export default function SongProgress({  }) {
-  const [ progress, setProgress ] = useState(0);
+  const { progress, setProgress } = useData();
   const bar = useRef();
   const dot = useRef();
   
@@ -23,12 +24,12 @@ export default function SongProgress({  }) {
     let min = allbox.x + dotbox.width / 2;
     let x = Math.min(Math.max(e.clientX - min, 0), allbox.width - dotbox.width);
 
-    setProgress(x);
+    setProgress(x / (allbox.width - dotbox.width) * 100);
   }
 
   return (
   <div ref={bar} className={styles.progress}>
-    <div className={styles.progressDotBefore} style={{ width: progress}}></div>
+    <div className={styles.progressDotBefore} style={{ width: `${progress}%`}}></div>
     <div ref={dot} className={styles.progressDot}></div>
     <div className={styles.clickable} onMouseDown={dotDown}></div>
   </div>)

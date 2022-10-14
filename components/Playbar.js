@@ -3,9 +3,10 @@ import SongProgress from './SongProgress';
 
 import styles from './Playbar.module.css';
 import { useState } from 'react';
+import { useData } from './Context';
 
 export default function Playbar({ title }) {
-  const [playing, setPlaying] = useState(false);
+  const { playing, setPlaying } = useData();
 
   const playClick = function() {
     setPlaying(!playing);
