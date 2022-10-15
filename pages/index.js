@@ -27,7 +27,7 @@ export default function Home({ songs }) {
         {songs.map((el, i) => <div className={styles.song}><Window title={el}></Window></div>)}
       </div>
       <Playbar title={song}></Playbar>
-      <audio src={`songs/${song}.mp3`}></audio>
+      <audio src={`songs/${song}.m4a`} type="audio/x-m4a" autoplay></audio>
     </div>
   )
 }
