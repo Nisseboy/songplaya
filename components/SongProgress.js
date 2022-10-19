@@ -1,10 +1,15 @@
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useData } from './Context';
 import styles from './SongProgress.module.css';
 
-export default function SongProgress({  }) {
-  const { progress, setProgress } = useData();
+export default function SongProgress({ duration }) {
+  const lastPlaying = useRef(false);
+
+  const { progress, setProgress,
+          playing, setPlaying,
+          audio } = useData();
+
   const bar = useRef();
   const dot = useRef();
   
@@ -12,11 +17,15 @@ export default function SongProgress({  }) {
     document.addEventListener("mousemove", dotMove);
     document.addEventListener("mouseup", dotUp);
 
+    lastPlaying.p = playing;
+    setPlaying(false);
+
     dotMove(e);
   }
   const dotUp = (e) => {
     document.removeEventListener("mousemove", dotMove);
-    document.addEventListener("mouseup", dotUp);
+    document.removeEventListener("mouseup", dotUp);
+    setPlaying(lastPlaying.p);
   }
   const dotMove = (e) => {
     let allbox = bar.current.getBoundingClientRect();
@@ -24,13 +33,32 @@ export default function SongProgress({  }) {
     let min = allbox.x + dotbox.width / 2;
     let x = Math.min(Math.max(e.clientX - min, 0), allbox.width - dotbox.width);
 
-    setProgress(x / (allbox.width - dotbox.width) * 100);
+    let prog = Math.min(x / (allbox.width - dotbox.width) * 100, 99.99);
+    setProgress(prog)
+    audio.currentTime = prog / 100 * duration;
   }
 
   return (
-  <div ref={bar} className={styles.progress}>
-    <div className={styles.progressDotBefore} style={{ width: `${progress}%`}}></div>
-    <div ref={dot} className={styles.progressDot}></div>
-    <div className={styles.clickable} onMouseDown={dotDown}></div>
+  <div className={styles.wrapper}>
+    <div ref={bar} className={styles.progress}>
+      <div className={styles.progressDotBefore} style={{ width: `${progress}%`}}></div>
+      <div ref={dot} className={styles.progressDot}></div>
+      <div className={styles.clickable} onMouseDown={dotDown}></div>
+    </div>
+    <div className={styles.times}>
+      <div className={styles.timeNow }>{fTime(duration * progress / 100)}</div>
+      <div className={styles.timeFull}>{fTime(duration)}</div>
+    </div>
   </div>)
+}
+
+
+function fTime(time) {
+  let t = Math.floor(time);
+  let m = Math.floor(t / 60);
+  let s = t % 60;
+
+  s = ((s < 10) ? "0":"") + s;
+
+  return `${m}:${s}`;
 }

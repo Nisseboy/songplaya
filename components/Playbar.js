@@ -2,10 +2,9 @@
 import SongProgress from './SongProgress';
 
 import styles from './Playbar.module.css';
-import { useState } from 'react';
 import { useData } from './Context';
 
-export default function Playbar({ title }) {
+export default function Playbar({ title, duration }) {
   const { playing, setPlaying } = useData();
 
   const playClick = function() {
@@ -23,7 +22,7 @@ export default function Playbar({ title }) {
       <div className={styles.play} onClick={playClick}>
         <img className={styles.playImg} src={(!playing)?"imgs/play.svg":"imgs/pause.svg"}/>
       </div>
-      <div className={styles.progress}><SongProgress></SongProgress></div>
+      <div className={styles.progress}><SongProgress duration={duration}></SongProgress></div>
     </div>
   </div>)
 }

@@ -11,11 +11,51 @@ import { promises as fs } from 'fs'
 import path from 'path'
 
 export default function Home({ songs }) {
-  const { song, setSong } = useData();
+  const { song, setSong,
+          progress, setProgress,
+          playing, setPlaying,
+          audio, setAudio } = useData();
+  const [ duration, setDuration ] = useState(0);
 
   useEffect(()=>{
     setSong(songs[0]);
   }, []);
+
+  useEffect(()=>{
+    let a = audio;
+    if (!audio) {
+      a = new Audio();
+      setAudio(a);
+    } 
+
+    a.src = `songs/${song}.m4a`;
+    if (playing) a.play();
+    
+    a.addEventListener('loadeddata', () => {
+      setDuration(a.duration);
+    });
+
+    const inter = setInterval(()=>{
+      if(a.currentTime == a.duration) {
+        //Next song
+      }
+      setProgress(a.currentTime / a.duration * 100);
+    }, 100);
+
+    return ()=>{
+      a.pause();
+      clearInterval(inter);
+    }
+  }, [song]);
+
+  useEffect(()=>{
+    if (!audio) return;
+    
+    if (playing)
+      audio.play();
+    else
+      audio.pause();
+  }, [playing]);
 
   return (
     <div className={styles.container}>
@@ -24,10 +64,9 @@ export default function Home({ songs }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.songContainer}>
-        {songs.map((el, i) => <div className={styles.song}><Window title={el}></Window></div>)}
+        {songs.map((el, i) => <div className={styles.song} key={i + "ssaf"}><Window title={el}></Window></div>)}
       </div>
-      <Playbar title={song}></Playbar>
-      <audio src={`songs/${song}.m4a`} type="audio/x-m4a" autoplay></audio>
+      <Playbar title={song} duration={duration}></Playbar>
     </div>
   )
 }
