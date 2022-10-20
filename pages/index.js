@@ -61,7 +61,7 @@ export default function Home({ songs }) {
     <div className={styles.container}>
       <Head>
         <title>Songplaya</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.jpg" />
       </Head>
       <div className={styles.songContainer}>
         {songs.map((el, i) => <div className={styles.song} key={i + "ssaf"}><Window title={el}></Window></div>)}

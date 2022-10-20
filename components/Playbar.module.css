@@ -41,9 +41,17 @@
   width: 70%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
-.play {
-  width: 3rem;
+.buttons {
+  width: 10%;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.button {
+  height: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 100%;
   background-color: var(--play);
@@ -53,8 +61,6 @@
   justify-content: center;
 
   cursor: pointer;
-
-  margin: 1rem;
 }
 .playImg {
   user-select: none;
@@ -62,5 +68,5 @@
   aspect-ratio: 1 / 1;
 }
 .progress {
-  width: 100%;
+  width: 85%;
 }

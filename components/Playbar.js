@@ -19,8 +19,16 @@ export default function Playbar({ title, duration }) {
     </div>
 
     <div className={styles.greenStuff}>
-      <div className={styles.play} onClick={playClick}>
-        <img className={styles.playImg} src={(!playing)?"imgs/play.svg":"imgs/pause.svg"}/>
+      <div className={styles.buttons}>
+        <div className={styles.button} onClick={playClick}>
+          <img className={styles.playImg} src="imgs/skip.svg"/>
+        </div>
+        <div className={styles.button} onClick={playClick}>
+          <img className={styles.playImg} src={(!playing)?"imgs/play.svg":"imgs/pause.svg"}/>
+        </div>
+        <div className={styles.button} onClick={playClick}>
+          <img className={styles.playImg} src="imgs/skip.svg"/>
+        </div>
       </div>
       <div className={styles.progress}><SongProgress duration={duration}></SongProgress></div>
     </div>
