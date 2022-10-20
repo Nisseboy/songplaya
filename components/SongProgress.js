@@ -30,25 +30,44 @@ export default function SongProgress({ duration }) {
   const dotMove = (e) => {
     let allbox = bar.current.getBoundingClientRect();
     let dotbox = dot.current.getBoundingClientRect();
+    
     let min = allbox.x + dotbox.width / 2;
     let x = Math.min(Math.max(e.clientX - min, 0), allbox.width - dotbox.width);
+
 
     let prog = Math.min(x / (allbox.width - dotbox.width) * 100, 99.99);
     setProgress(prog)
     audio.currentTime = prog / 100 * duration;
   }
 
+  const playClick = function() {
+    setPlaying(!playing);
+  }
+
   return (
   <div className={styles.wrapper}>
-    <div ref={bar} className={styles.progress}>
-      <div className={styles.progressDotBefore} style={{ width: `${progress}%`}}></div>
-      <div ref={dot} className={styles.progressDot}></div>
-      <div className={styles.clickable} onMouseDown={dotDown}></div>
+    <div className={styles.buttons}>
+      <div className={styles.button} onClick={playClick}>
+        <img className={styles.playImg} src="imgs/skip.svg"/>
+      </div>
+      <div className={styles.button} onClick={playClick}>
+        <img className={styles.playImg} src={(!playing)?"imgs/play.svg":"imgs/pause.svg"}/>
+      </div>
+      <div className={styles.button} onClick={playClick}>
+        <img className={styles.playImg} src="imgs/skip.svg" style={{transform: "rotate(180deg)"}}/>
+      </div>
     </div>
+    
     <div className={styles.times}>
       <div className={styles.timeNow }>{fTime(duration * progress / 100)}</div>
+      <div ref={bar} className={styles.progress}>
+        <div className={styles.progressDotBefore} style={{ width: `calc(${progress}% - ${progress / 100}rem)`}}></div>
+        <div ref={dot} className={styles.progressDot}></div>
+        <div className={styles.clickable} onMouseDown={dotDown}></div>
+      </div>
       <div className={styles.timeFull}>{fTime(duration)}</div>
     </div>
+    
   </div>)
 }
 

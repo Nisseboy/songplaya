@@ -1,7 +1,7 @@
 :root {
   --bg: rgb(48, 48, 48);
   --fg: rgb(65, 65, 65);
-  --play: limegreen;
+  --play: white;
 }
 
 html,
@@ -17,4 +17,18 @@ body {
 * {
   box-sizing: content-box;
   color: white;
+}
+
+
+::-webkit-scrollbar {
+  width: 0.8rem;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--fg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

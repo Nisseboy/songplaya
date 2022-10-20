@@ -7,18 +7,22 @@ import styles from '../styles/Home.module.css';
 import { useEffect, useState } from 'react';
 import { useData } from '../components/Context';
 
-import { promises as fs } from 'fs'
-import path from 'path'
+import { promises as fs } from 'fs';
+import path from 'path';
+import Header from '../components/Header';
 
 export default function Home({ songs }) {
   const { song, setSong,
           progress, setProgress,
           playing, setPlaying,
-          audio, setAudio } = useData();
+          audio, setAudio,
+          setSongs } = useData();
   const [ duration, setDuration ] = useState(0);
 
+  setSongs(songs);
+
   useEffect(()=>{
-    setSong(songs[0]);
+    setSong(songs[Math.floor(Math.random() * songs.length)]);
   }, []);
 
   useEffect(()=>{
@@ -63,6 +67,7 @@ export default function Home({ songs }) {
         <title>Songplaya</title>
         <link rel="icon" href="/favicon.jpg" />
       </Head>
+      <Header/>
       <div className={styles.songContainer}>
         {songs.map((el, i) => <div className={styles.song} key={i + "ssaf"}><Window title={el}></Window></div>)}
       </div>
@@ -70,7 +75,6 @@ export default function Home({ songs }) {
     </div>
   )
 }
-
 
 export async function getStaticProps() {
   const songsDir = path.join(process.cwd(), "public", "songs");

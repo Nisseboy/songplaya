@@ -6,6 +6,7 @@
 }
 .progress {
   height: 0.3rem;
+  width: 100%;
   background-color: var(--bg);
 
   display: flex;
@@ -38,9 +39,43 @@
   left: 0;
 }
 
+.clickable ~ .progressDotBefore  {
+  background-color: red;
+}
+
 .times {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  gap: 1rem;
 
   margin-top: 5px;
+}
+
+
+
+.buttons {
+  width: 100%;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.button {
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 100%;
+  background-color: var(--play);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+.playImg {
+  user-select: none;
+  width: 80%;
+  aspect-ratio: 1 / 1;
 }
