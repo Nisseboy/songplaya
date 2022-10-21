@@ -8,6 +8,7 @@ export default function SongProgress({ duration }) {
 
   const { progress, setProgress,
           playing, setPlaying,
+          repeat, setRepeat,
           audio } = useData();
 
   const bar = useRef();
@@ -43,18 +44,18 @@ export default function SongProgress({ duration }) {
   const playClick = function() {
     setPlaying(!playing);
   }
+  const repeatClick = function() {
+    setRepeat(!repeat);
+  }
 
   return (
   <div className={styles.wrapper}>
     <div className={styles.buttons}>
       <div className={styles.button} onClick={playClick}>
-        <img className={styles.playImg} src="imgs/skip.svg"/>
-      </div>
-      <div className={styles.button} onClick={playClick}>
         <img className={styles.playImg} src={(!playing)?"imgs/play.svg":"imgs/pause.svg"}/>
       </div>
-      <div className={styles.button} onClick={playClick}>
-        <img className={styles.playImg} src="imgs/skip.svg" style={{transform: "rotate(180deg)"}}/>
+      <div className={styles.button} onClick={repeatClick} style={{filter: `brightness(${repeat?1:0.5})`}}>
+        <img className={styles.playImg} src="imgs/repeat.svg"/>
       </div>
     </div>
     

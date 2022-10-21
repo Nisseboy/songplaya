@@ -7,6 +7,7 @@ export default function Context({ children }) {
   const [songs, setSongs] = useState([]);
   const [progress, setProgress] = useState(0);
   const [playing, setPlaying] = useState(false);
+  const [repeat, setRepeat] = useState(false);
   const [audio, setAudio] = useState();
 
   const exposed = {
@@ -14,7 +15,8 @@ export default function Context({ children }) {
     songs, setSongs,
     progress, setProgress,
     playing, setPlaying,
-    audio, setAudio
+    audio, setAudio,
+    repeat, setRepeat
   };
   
   return <context.Provider value={exposed}>{children}</context.Provider>;

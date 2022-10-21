@@ -4,7 +4,7 @@ import Playbar from '../components/Playbar';
 
 import styles from '../styles/Home.module.css';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useData } from '../components/Context';
 
 import { promises as fs } from 'fs';
@@ -15,15 +15,22 @@ export default function Home({ songs }) {
   const { song, setSong,
           progress, setProgress,
           playing, setPlaying,
+          repeat,
           audio, setAudio,
           setSongs } = useData();
   const [ duration, setDuration ] = useState(0);
+
+  const idotRef = useRef();
 
   setSongs(songs);
 
   useEffect(()=>{
     setSong(songs[Math.floor(Math.random() * songs.length)]);
   }, []);
+
+  useEffect(()=>{
+    idotRef.rp = repeat;
+  }, [repeat]);
 
   useEffect(()=>{
     let a = audio;
@@ -41,7 +48,12 @@ export default function Home({ songs }) {
 
     const inter = setInterval(()=>{
       if(a.currentTime == a.duration) {
-        //Next song
+        if (!idotRef.rp) {
+          setSong(songs[Math.floor(Math.random() * songs.length)]);
+        } else {
+          audio.currentTime = 0;
+          audio.play();
+        }
       }
       setProgress(a.currentTime / a.duration * 100);
     }, 100);
